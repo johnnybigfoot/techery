@@ -57,8 +57,8 @@ public class BaseFlowTest extends BaseTest {
         bucketRequest.setStatus("new");
         bucketRequest.setTarget_data("2016-12-12 12:00:00");
         Bucket bucket = createBucket(token, bucketRequest);
-        Assert.assertNotNull("Error on bucket creation!", bucket);
-        System.out.println("Bucket created: " + bucket);
+        Assert.assertNotNull("Error on bucket creation!", bucket.getUid());
+//        System.out.println("Bucket created: " + bucket);
     }
 
     @Test
@@ -73,12 +73,12 @@ public class BaseFlowTest extends BaseTest {
         bucketRequest.setStatus("new");
         bucketRequest.setTarget_data("2016-12-12 12:00:00");
         Bucket bucket = createBucket(token, bucketRequest);
-//        Arrays.asList(getBuckets(token)).stream().forEach(b-> System.out.println(b));
-        Assert.assertTrue("Error on getting buckets list!", getBuckets(token).length>0);
+//        Arrays.asList(getBuckets(token)).stream().forEach(b -> System.out.println(b));
+        Assert.assertTrue("Error on getting buckets list!", getBuckets(token).length > 0);
     }
 
     @Test
-         public void updateBucketTest() {
+    public void updateBucketTest() {
         AuthorizeRequest authorizeRequest = new AuthorizeRequest(username, password);
         Authorize authorizeResponse = authorize(authorizeRequest);
         String token = authorizeResponse.getToken();
@@ -90,8 +90,8 @@ public class BaseFlowTest extends BaseTest {
         bucketRequest.setTarget_data("2016-12-12 12:00:00");
         Bucket bucket = createBucket(token, bucketRequest);
         bucket.setDescription("NewDescription");
-        Bucket updatedBucket =  updateBucket(token, bucket);
-        Assert.assertEquals("Error on bucket update!", updatedBucket.getDescription(), "NewDescription");
+        String updatedBucket = updateBucket(token, bucket);
+        Assert.assertTrue("Error on bucket update!", updatedBucket.contains("NewDescription"));
     }
 
     @Test
@@ -106,9 +106,8 @@ public class BaseFlowTest extends BaseTest {
         bucketRequest.setStatus("new");
         bucketRequest.setTarget_data("2016-12-12 12:00:00");
         Bucket bucket = createBucket(token, bucketRequest);
-        bucket.setDescription("NewDescription");
-        System.out.println(deleteBucket(token, bucket.getId()));
-//        Assert.assertEquals("Error on bucket update!", updatedBucket.getDescription(), "NewDescription");
+        deleteBucket(token, bucket.getId());
+        Assert.assertFalse("Bucket wasn't removed!", containsBucketWithId(getBuckets(token), bucket.getId()));
     }
 
     @Test
@@ -123,6 +122,8 @@ public class BaseFlowTest extends BaseTest {
         bucketRequest.setStatus("new");
         bucketRequest.setTarget_data("2016-12-12 12:00:00");
         Bucket bucket = createBucket(token, bucketRequest);
-        Assert.assertNotNull("Error on bucket get info!", getBucketInfo(token, bucket.getId()));
+        String bucketInfo = getBucketInfo(token, bucket.getId());
+//        System.out.println(bucketInfo);
+        Assert.assertNotNull("Error on bucket get info!", bucketInfo);
     }
 }

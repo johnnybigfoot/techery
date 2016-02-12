@@ -36,15 +36,22 @@ public class BaseTest {
         return RestClient.get(BUCKET, token, Bucket[].class);
     }
 
-    protected Bucket getBucketInfo(String token, int bucketId) {
-        return RestClient.get(BUCKET + "/" + bucketId, token, Bucket.class);
+    protected String getBucketInfo(String token, int bucketId) {
+        return RestClient.get(BUCKET + "/" + bucketId, token, String.class);
     }
 
-    protected Bucket updateBucket(String token, Bucket bucket) {
-        return RestClient.put(BUCKET + "/" + bucket.getId(), bucket, token, Bucket.class);
+    protected String updateBucket(String token, Bucket bucket) {
+        return RestClient.put(BUCKET + "/" + bucket.getId(), bucket, token, String.class);
     }
 
-    protected String deleteBucket(String token, int bucketId) {
-        return RestClient.delete(BUCKET + "/" + bucketId, token, String.class);
+    protected void deleteBucket(String token, int bucketUId) {
+        RestClient.delete(BUCKET + "/" + bucketUId, token);
+    }
+
+    protected boolean containsBucketWithId(Bucket[] buckets, int id) {
+        boolean contains = false;
+        for (int i = 0; i < buckets.length - 1; i++)
+            if (id == buckets[i].getId()) contains = true;
+        return contains;
     }
 }

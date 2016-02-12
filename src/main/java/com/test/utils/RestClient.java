@@ -29,7 +29,7 @@ public class RestClient {
     public static <T> T get(String path, MultivaluedMap params, Class<T> responseType) {
         return getWebResource().path(path).queryParams(params).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .get(responseType);
     }
@@ -37,7 +37,7 @@ public class RestClient {
     public static <T> T get(String path, MultivaluedMap params, String token, Class<T> responseType) {
         return getWebResource().path(path).queryParams(params).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .header("Authorization", "Token token=" + token)
                 .get(responseType);
@@ -54,7 +54,7 @@ public class RestClient {
     public static <T> T post(String path, MultivaluedMap params, Object requestObj, Class<T> responseType) {
         return getWebResource().path(path).queryParams(params).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .post(responseType, requestObj);
     }
@@ -62,7 +62,7 @@ public class RestClient {
     public static <T> T post(String path, MultivaluedMap params, String token, Object requestObj, Class<T> responseType) {
         return getWebResource().path(path).queryParams(params).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .header("Authorization", "Token token=" + token)
                 .post(responseType, requestObj);
@@ -71,7 +71,7 @@ public class RestClient {
     public static <T> T post(String path, Class<T> responseType) {
         return getWebResource().path(path).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .post(responseType);
     }
@@ -79,7 +79,7 @@ public class RestClient {
     public static <T> T put(String path, Object requestObj, Class<T> responseType) {
         return getWebResource().path(path).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .put(responseType, requestObj);
     }
@@ -87,28 +87,27 @@ public class RestClient {
     public static <T> T put(String path, Object requestObj, String token, Class<T> responseType) {
         return getWebResource().path(path).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .header("Authorization", "Token token=" + token)
                 .put(responseType, requestObj);
     }
 
-    public static <T> T delete(String path, Object requestObj, String token, Class<T> responseType) {
-        return getWebResource().path(path).type(MediaType.APPLICATION_JSON_TYPE)
+    public static void delete(String path, String token) {
+         getWebResource().path(path).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=1")
                 .header("Accept-Language", "en-us")
                 .header("Authorization", "Token token=" + token)
-                .delete(responseType, requestObj);
+                .delete();
     }
 
     public static <T> T delete(String path, String token, Class<T> responseType) {
         return getWebResource().path(path).type(MediaType.APPLICATION_JSON_TYPE)
                 .header("Content-Type", "application/json")
-                .header("Accept", "application/com.dreamtrips.api+json;version=2")
+                .header("Accept", "application/com.dreamtrips.api+json;version=")
                 .header("Accept-Language", "en-us")
                 .header("Authorization", "Token token=" + token)
                 .delete(responseType);
     }
-
 }
